@@ -1,5 +1,6 @@
 %% Define main script
-initScript = 'knn\main.m';
+algorithm = 'knn_fuzzy';
+initScript = strcat(algorithm, '\main.m');
 
 %% Load data
 fTrain = '../data/cleveland_tra.dat';
@@ -14,3 +15,6 @@ CT(:, 1:end - 1) = bsxfun(@rdivide, bsxfun(@minus, CT(:, 1:end - 1), minimum), (
 
 %% Run main script
 run(initScript);
+
+%% Save result
+csvwrite(strcat('../results/result-', algorithm, '.csv'), [(1:size(classTst, 1))' classTst]);
