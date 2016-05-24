@@ -1,5 +1,5 @@
 %% Define main script
-initScript = '';
+initScript = 'knn\main.m';
 
 %% Load data
 fTrain = '../data/cleveland_tra.dat';
