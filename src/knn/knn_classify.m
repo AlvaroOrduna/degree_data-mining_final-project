@@ -1,5 +1,5 @@
 function [ confusionMat, dataClasses ] = knn_classify( classifier, data, k, isTrain )
-%CLASSIFY
+%KNN_CLASSIFY
 
     % Get all classes
     classes = unique(classifier(:, end));
