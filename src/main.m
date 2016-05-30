@@ -17,4 +17,4 @@ CT(:, 1:end - 1) = bsxfun(@rdivide, bsxfun(@minus, CT(:, 1:end - 1), minimum), (
 run(initScript);
 
 %% Save result
-csvwrite(strcat('../results/result-', algorithm, '.csv'), [(1:size(classTst, 1))' classTst]);
+csvwrite(strcat('../results/result-', algorithm, '.csv'), [(1:size(classTst, 1))' classTst - 1]);
