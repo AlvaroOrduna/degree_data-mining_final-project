@@ -1,13 +1,16 @@
 % Define algorithm paramaters
-k = 3;
+if exist('k', 'var') == 0
+    k = 3;
+end
 
 % Learn and classify data
 classifier = CE;
 
 [confusionMatTr, classTr] = knn_classify(classifier, CE, k, 1);
-[confusionMatTst, classTst] = knn_classify(classifier, CT, k, 0);
-
 accTr = knn_accuracy(confusionMatTr);
-accTst = knn_accuracy(confusionMatTst);
 
-fprintf('Con k = %d: accTr = %f y accTst = %f\n', k, accTr, accTst);
+if exist('inGenetic', 'var') == 0 || ~inGenetic
+    [confusionMatTst, classTst] = knn_classify(classifier, CT, k, 0);
+    accTst = knn_accuracy(confusionMatTst);
+    fprintf('Con k = %d: accTr = %f y accTst = %f\n', k, accTr, accTst);
+end

@@ -1,5 +1,5 @@
 %% Define main script
-algorithm = 'knn_fuzzy';
+algorithm = 'knn_genetic';
 initScript = strcat(algorithm, '\main.m');
 
 %% Load data
