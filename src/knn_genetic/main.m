@@ -1,12 +1,13 @@
 % Define parameters
 m = 20;
-paramMaxValue = 10;
-iters = 50;
+paramMaxValue = 30;
+iters = 200;
+tournament_k = floor(m/2);
 script = '..\knn_fast\main.m';
 inGenetic = 1;
 
 % Initialize population
-population = randi(paramMaxValue, [m 2]);
+population = [randi(paramMaxValue, [m 2]) (randi(2, [m numAtr]) - 1)];
     
 % Calculate population's fitness
 fitness = genetic_fitness(population, CE, CT, nClases, script, inGenetic);
@@ -15,23 +16,20 @@ fitness = genetic_fitness(population, CE, CT, nClases, script, inGenetic);
 i = 0;
 bestFitness = max(fitness);
 bestFitnessPrev = 0;
-while i < iters %&& (bestFitness - bestFitnessPrev) > 0.00000001
+while i < iters || (bestFitness - bestFitnessPrev) > 0.00000001
     fprintf('.');
     newPopulation = zeros(size(population));
     
     for j = 1:2:m
         % Select parents
-        parents = genetic_tournament(population, fitness, 12);
+        parents = genetic_tournament(population, fitness, tournament_k);
 
         % Crossover parents to create children
-        child1 = parents(1,:);
-        child2 = parents(2,:);
-        child1(2) = parents(2,2);
-        child2(2) = parents(1,2);
+        progeny = genetic_crossover(parents);
 
         % Mutate children
-        newPopulation(j, :) =  genetic_mutate(child1, paramMaxValue, 0.01);
-        newPopulation(j + 1, :) =  genetic_mutate(child2, paramMaxValue, 0.01);
+        newPopulation(j, :) =  genetic_mutate(progeny(1, :), paramMaxValue, 0.01);
+        newPopulation(j + 1, :) =  genetic_mutate(progeny(2, :), paramMaxValue, 0.01);
     end
     
     % Substitute old population
@@ -51,6 +49,10 @@ inGenetic = 0;
 [~, bestChromosomeIndex] = max(fitness);
 k = population(bestChromosomeIndex, 1);
 kf = population(bestChromosomeIndex, 2);
+variableSelection = population(bestChromosomeIndex, 3:end);
+CE = CE(:, logical([variableSelection 1]));
+CT = CT(:, logical([variableSelection 1]));
 run(script);
 
 fprintf('GENETIC (%d): Con k = %d y kf = %d: accTr = %f y accTst = %f\n', i, k, kf, accTr, accTst);
+disp(population(bestChromosomeIndex, :))
