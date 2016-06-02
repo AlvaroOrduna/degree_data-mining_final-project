@@ -1,4 +1,4 @@
-function[] = graphXY()
+function[] = graphAtr()
 %%Read and normalize data
 fTrain = '../data/cleveland_tra.dat';
 fTest = '../data/cleveland_tst.dat';
