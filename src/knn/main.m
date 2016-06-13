@@ -1,6 +1,6 @@
 % Define algorithm paramaters
 if exist('k', 'var') == 0
-    k = 3;
+    k = 15;
 end
 
 % Learn and classify data

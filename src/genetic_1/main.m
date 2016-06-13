@@ -14,7 +14,7 @@
 m = 20;
 kMaxValue = 30;
 numExamples = size(CE, 1);
-iters = 10000;
+iters = 500;
 tournament_k = floor(m/2);
 script = '..\knn_fast\main.m';
 inGenetic = 1;
@@ -30,7 +30,7 @@ fitness = genetic_fitness(population, CE, CT, numAtr, nClases, script, inGenetic
 i = 0;
 bestFitness = max(fitness);
 bestFitnessPrev = 0;
-while i < iters && (bestFitness - bestFitnessPrev) > delta
+while i < iters %&& (bestFitness - bestFitnessPrev) > delta
     if rem(i, 50) == 0
         fprintf('\n%4d ', i);
     end
@@ -71,5 +71,5 @@ CE = CE(dataSelection, logical([variableSelection 1]));
 CT = CT(:, logical([variableSelection 1]));
 run(script);
 
-fprintf('GENETIC (%d): Con k = %d: accTr = %f y accTst = %f\n', i, k, accTr, accTst);
+fprintf('\nGENETIC (%d): Con k = %d: accTr = %f y accTst = %f\n', i, k, accTr, accTst);
 % disp(population(bestChromosomeIndex, :))

@@ -1,7 +1,7 @@
 % Define parameters
 m = 20;
 paramMaxValue = 30;
-iters = 10000;
+iters = 500;
 tournament_k = floor(m/2);
 script = '..\knn_fast\main.m';
 inGenetic = 1;
@@ -17,7 +17,10 @@ fitness = genetic_fitness(population, CE, CT, nClases, script, inGenetic);
 i = 0;
 bestFitness = max(fitness);
 bestFitnessPrev = 0;
-while i < iters && (bestFitness - bestFitnessPrev) > delta
+while i < iters %&& (bestFitness - bestFitnessPrev) > delta
+    if rem(i, 50) == 0
+        fprintf('\n%4d ', i);
+    end
     fprintf('.');
     newPopulation = zeros(size(population));
     
@@ -55,5 +58,5 @@ CE = CE(:, logical([variableSelection 1]));
 CT = CT(:, logical([variableSelection 1]));
 run(script);
 
-fprintf('GENETIC (%d): Con k = %d y kf = %d: accTr = %f y accTst = %f\n', i, k, kf, accTr, accTst);
+fprintf('\nGENETIC (%d): Con k = %d y kf = %d: accTr = %f y accTst = %f\n', i, k, kf, accTr, accTst);
 disp(population(bestChromosomeIndex, :))

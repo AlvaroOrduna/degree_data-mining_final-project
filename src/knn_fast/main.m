@@ -5,7 +5,7 @@ dataset.numClasses = nClases;
 
 % Define KNN parameters
 if exist('k', 'var') == 0
-    k = 3;
+    k = 15;
 end
 voteType = 'pond';
 distType = 'Euclidea';
@@ -21,5 +21,8 @@ if exist('inGenetic', 'var') == 0 || ~inGenetic
     numTest = size(CT, 1);
     classTst = knn_test(dataset,numTest,numTrain,distType,k,voteType, 0);
     accTst = sum(classTst' == CT(:,end))/numTest;
+end
+
+if exist('inGenetic', 'var') == 0
     fprintf('Con k = %d: accTr = %f y accTst = %f\n', k, accTr, accTst);
 end

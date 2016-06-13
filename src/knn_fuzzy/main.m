@@ -1,7 +1,7 @@
 % Define algorithm paramaters
 if exist('k', 'var') == 0 || exist('kf', 'var') == 0
-    k = 3;
-    kf = 3;
+    k = 15;
+    kf = 20;
 end
 
 % Learn and classify data
