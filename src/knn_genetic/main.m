@@ -1,10 +1,11 @@
 % Define parameters
 m = 20;
 paramMaxValue = 30;
-iters = 200;
+iters = 10000;
 tournament_k = floor(m/2);
 script = '..\knn_fast\main.m';
 inGenetic = 1;
+delta = 1e-100;
 
 % Initialize population
 population = [randi(paramMaxValue, [m 2]) (randi(2, [m numAtr]) - 1)];
@@ -16,7 +17,7 @@ fitness = genetic_fitness(population, CE, CT, nClases, script, inGenetic);
 i = 0;
 bestFitness = max(fitness);
 bestFitnessPrev = 0;
-while i < iters || (bestFitness - bestFitnessPrev) > 0.00000001
+while i < iters && (bestFitness - bestFitnessPrev) > delta
     fprintf('.');
     newPopulation = zeros(size(population));
     
