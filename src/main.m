@@ -1,5 +1,5 @@
 %% Define main script
-algorithm = 'genetic_2';
+algorithm = 'knn_genetic';
 initScript = strcat(algorithm, '\main.m');
 
 %% Load data
@@ -8,7 +8,7 @@ fTest = '../data/cleveland_tst.dat';
 [numAtr, nClases, infoAtr, CE, CT, ejClase] = lecturaDatos(fTrain, fTest);
 
 %% Normalize data
-norm = 1;
+norm = 0;
 if norm
     minimum = infoAtr(:, 1)';
     maximum = infoAtr(:, 2)';
@@ -21,7 +21,8 @@ run(initScript);
 
 %% Save result
 if norm
-    csvwrite(strcat('../results/result-', algorithm, '-norm-', num2str(accTst), '.csv'), [(1:size(classTst, 1))' classTst - 1]);
+    fileName = sprintf('../results/result-%5.4f-%s-norm.csv', accTst, algorithm);
 else
-    csvwrite(strcat('../results/result-', algorithm, '-', num2str(accTst), '.csv'), [(1:size(classTst, 1))' classTst - 1]);
+    fileName = sprintf('../results/result-%5.4f-%s.csv', accTst, algorithm);
 end
+csvwrite(fileName, [(1:size(classTst, 1))' classTst - 1]);
