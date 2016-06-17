@@ -1,4 +1,4 @@
-# Mineria-Projecto-Final
+# UPNA | Minería de datos | Projecto Final
 
 *Autores:* Carl Rodriguez (@carl12) y Álvaro Orduna (@AlvaroOrduna)
 
